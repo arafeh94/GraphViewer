@@ -37,10 +37,11 @@ class Tools extends Component
         \Yii::$app->view->registerJs("console.log({$msg})");
     }
 
-    public static function currentDate()
+    public static function currentDate($format = null)
     {
         $time = new \DateTime('now', new \DateTimeZone(\Yii::$app->params['timezone']));
-        return $time->format(\Yii::$app->params['dateTimeFormat']);
+        $format = $format == null ? \Yii::$app->params['dateTimeFormat'] : $format;
+        return $time->format($format);
     }
 
     public static function random($length = 8)
@@ -79,6 +80,25 @@ class Tools extends Component
         $args[] = &$data;
         call_user_func_array('array_multisort', $args);
         return array_pop($args);
+    }
+
+    static function createFolder($path)
+    {
+        if (!file_exists($path)) {
+            return mkdir($path, 0777, true)
+                ? $path : null;
+        }
+        return $path;
+    }
+
+    static function str_between($string, $start, $end)
+    {
+        $string = ' ' . $string;
+        $ini = strpos($string, $start);
+        if ($ini == 0) return '';
+        $ini += strlen($start);
+        $len = strpos($string, $end, $ini) - $ini;
+        return substr($string, $ini, $len);
     }
 
 }

@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=none',
+    'dsn' => 'mysql:host=localhost;dbname=matlab',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',

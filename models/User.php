@@ -3,9 +3,20 @@
 namespace app\models;
 
 use app\components\rbac\RbacInterface;
+use app\components\Tools;
 use Yii;
+use yii\db\ActiveRecord;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface,RbacInterface
+/**
+ * Class User
+ * @property int id
+ * @property string username
+ * @property string password
+ * @property int role
+ * @property string created_at
+ * @package app\models
+ */
+class User extends ActiveRecord implements \yii\web\IdentityInterface,RbacInterface
 {
     /**
      * @return User
@@ -16,36 +27,13 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface,RbacIn
         return Yii::$app->user->identity;
     }
 
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
 
     /**
      * @inheritdoc
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return self::findOne($id);
     }
 
     /**
@@ -53,12 +41,6 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface,RbacIn
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
         return null;
     }
 
@@ -70,13 +52,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface,RbacIn
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return self::findOne(['username'=>$username]);
     }
 
     /**
@@ -92,7 +68,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface,RbacIn
      */
     public function getAuthKey()
     {
-        return $this->authKey;
+        return null;
     }
 
     /**
@@ -100,7 +76,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface,RbacIn
      */
     public function validateAuthKey($authKey)
     {
-        return $this->authKey === $authKey;
+        return true;
     }
 
     /**
@@ -119,6 +95,6 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface,RbacIn
      */
     function getRole()
     {
-        return "admin"
+        return $this->role == 1 ? "admin" : "user";
     }
 }

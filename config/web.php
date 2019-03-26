@@ -57,6 +57,11 @@ $config = [
             'showScriptName' => false,
             'rules' => [],
         ],
+        'matlab' => [
+            'class' => 'app\components\Matlab',
+            'matlabExecutable' => 'E:/Program File/MATLAB/bin/matlab.exe',
+            'outputDir' => str_replace('/', DIRECTORY_SEPARATOR, ini_get('upload_tmp_dir')),
+        ]
     ],
     'params' => $params,
 ];

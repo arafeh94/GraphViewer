@@ -12,7 +12,7 @@ namespace app\components\rbac;
 use app\components\Tools;
 use app\models\User;
 use Yii;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\rbac\PhpManager;
 use yii\rbac\Role;
 

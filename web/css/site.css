@@ -11,7 +11,11 @@ body {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 0px 15px 20px;
+}
+
+.content {
+    margin: 8px;
 }
 
 .footer {
@@ -96,9 +100,9 @@ a.desc:after {
     border: none;
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     .nav li > form > button.logout {
-        display:block;
+        display: block;
         text-align: left;
         width: 100%;
         padding: 10px 15px;
@@ -112,4 +116,13 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+.side-panel {
+    width: 48%;
+    margin: 8px;
+}
+
+.help-block {
+    color: red;
 }

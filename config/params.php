@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'bsVersion' => '4.x',
     'adminEmail' => 'admin@example.com',
     'timezone' => 'Asia/Beirut',
     'dateFormat' => 'yyyy-mm-dd',

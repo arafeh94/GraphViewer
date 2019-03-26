@@ -28,12 +28,6 @@ class SiteController extends Controller
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
         ];
     }
 
@@ -60,7 +54,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->redirect(['project/view']);
     }
 
     /**
@@ -103,5 +97,12 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionHelp($about = null)
+    {
+        return $this->render('help', [
+            'about' => $about
+        ]);
     }
 }
