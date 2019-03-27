@@ -24,7 +24,7 @@
         <font color="gray">% in case <font color="red">jsondecode</font>  didn't work, the webserver is supplied with a custom json decoder, you can have it from this
             <a href="https://www.mathworksjsondecode.com/matlabcentral/fileexchange/33381-jsonlab-a-toolbox-to-encode-decode-json-files">link</a>
         </font><br>
-        addpath('jsonlab')<br>
+        addpath('../jsonlab')<br>
         <font color="gray">% decode json input to matlab variable using jsonlab</font><br>
         x = loadjson(input);<br>
 
@@ -35,6 +35,8 @@
         saveas(gcf,strcat(dir,'Barchart.png'));<br>
 
         <font color="gray">%output the saved file location for the webserver to know about it</font><br>
+        disp('@start')<br>
         disp(strcat(dir,'Barchart.png'))<br>
+        disp('@end')<br>
     </div>
 </div>

@@ -11,6 +11,7 @@ use app\models\Project;
 use app\models\ProjectQuery;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -71,19 +72,27 @@ class GraphController extends Controller
 
     public function actionView($graphId)
     {
+        ini_set('max_execution_time', 0);
         $result = null;
         $graph = Graph::findOne($graphId);
         $input = $graph->default_input;
-
         if (Yii::$app->request->post('input', false)) {
+            $result = false;
+            Yii::info(Yii::$app->request->post());
             $input = Yii::$app->request->post('input');
-            $func = Tools::str_between($graph->mfile, 'm/', '.m');
-            $result = Matlab::exec($func, $input)[10];
-            $session = Yii::$app->session->id;
-            $graphDir = Tools::createFolder("m/graphs/$session");
-            $graphPath = "{$graphDir}/{$graph->title}.png";
-            rename($result, $graphPath);
-            $result = $graphPath;
+            $func = Tools::str_between($graph->mfile, "m/{$graph->project_id}/", '.m');
+            if (!empty($func)) {
+                $output = Matlab::exec("m/{$graph->project_id}", $func, $input);
+                Yii::info($output);
+                if (!empty($output)) {
+                    $result = $output[0];
+                    $session = Yii::$app->session->id;
+                    $graphDir = Tools::createFolder("m/graphs/$session");
+                    $graphPath = "{$graphDir}/{$graph->title}.png";
+                    rename($result, $graphPath);
+                    $result = $graphPath;
+                }
+            }
         }
         return $this->render('view', [
             'graph' => $graph,
@@ -98,7 +107,7 @@ class GraphController extends Controller
         $model->project_id = $projectId;
         if (Yii::$app->request->post('Graph', false)) {
             $model->load(Yii::$app->request->post());
-            $path = UploadForm::save('m');
+            $path = UploadForm::save("m/{$projectId}");
             $model->mfile = $path;
             if ($model->save()) $this->redirect(['project/view', 'focus' => $model->project_id]);
         }
@@ -113,10 +122,8 @@ class GraphController extends Controller
         $request = Yii::$app->request;
         if ($request->post("Graph", false)) {
             $model->load(Yii::$app->request->post());
-            if ($model->isAttributeChanged('mfile')) {
-                $path = UploadForm::save('m');
-                $model->mfile = $path;
-            }
+            $path = UploadForm::save("m/{$model->project_id}");
+            if ($path) $model->mfile = $path;
             if ($model->save()) $this->redirect(['project/view', 'focus' => $model->project_id]);
         }
         return $this->render('modify', [

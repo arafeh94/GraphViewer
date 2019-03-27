@@ -5,8 +5,6 @@
  * Date: 3/23/2019
  * Time: 8:19 PM
  */
-ini_set('max_execution_time', 0);
-
 use \rmrevin\yii\fontawesome\FAS;
 use yii\widgets\ActiveForm;
 use yii\bootstrap4\Html;
@@ -57,6 +55,8 @@ use yii\bootstrap4\Html;
                 <div class="card-body">
                     <?php if ($result) : ?>
                         <?= Html::img("@web/$result", ['class' => 'pull-left img-responsive', 'style' => 'width:100%']); ?>
+                    <?php elseif($result === false): ?>
+                        <span class="help-block"> Error while parsing results</span>
                     <?php else: ?>
                         Provide Input To Generate The Graph
                     <?php endif; ?>

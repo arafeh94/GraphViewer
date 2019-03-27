@@ -42,6 +42,7 @@ class UploadForm extends Model
         $upload = new UploadForm();
         $upload->file = UploadedFile::getInstance($upload, 'file');
         if ($upload->file && $upload->validate()) {
+            Tools::createFolder($directory);
             $path = $directory . '/' . $upload->file->baseName . '.' . $upload->file->extension;
             if ($upload->file->saveAs($path)) return $path;
             return null;
