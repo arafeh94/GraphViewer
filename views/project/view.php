@@ -13,6 +13,7 @@ use \yii\bootstrap4\Html;
  */
 ?>
 
+
 <div id="accordion">
     <?php foreach ($projects as $project): ?>
         <div class="card" style="margin: 8px">
@@ -32,10 +33,11 @@ use \yii\bootstrap4\Html;
                     <div class="card" style="margin-bottom: 12px">
                         <div class="card-header">Description</div>
                         <div class="card-body">
-                            <?= $project->description ?>
+                            <div>
+                                <?= $project->description ?>
+                            </div>
                         </div>
                     </div>
-
                     <div class="card" style="margin-bottom: 12px">
                         <div class="card-header">Graphs</div>
                         <div class="card-body">
@@ -58,8 +60,6 @@ use \yii\bootstrap4\Html;
                             </div>
                         </div>
                     </div>
-
-
                     <div class="card-columns">
                         <div class="card">
                             <div class="card-header">Authors</div>
@@ -93,6 +93,38 @@ use \yii\bootstrap4\Html;
                             </div>
                         </div>
                     </div>
+                    <?php if ($project->youtube_id): ?>
+                        <div id="video-expandable<?= $project->id ?>">
+                            <div class="card" style="margin: 8px">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed font-weight-bold" data-toggle="collapse"
+                                                data-target="#collapseObject<?= $project->id ?>"
+                                                aria-expanded="false"
+                                                aria-controls="collapseObject<?= $project->id ?>">
+                                            Video Preview
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseObject<?= $project->id ?>" class="collapse"
+                                     aria-labelledby="headingProject"
+                                     data-parent="#video-expandable<?= $project->id ?>">
+                                    <div style="margin: auto" class="videoWrapper">
+                                        <?= \tuyakhov\youtube\EmbedWidget::widget([
+                                            'code' => "$project->youtube_id",
+                                            'playerParameters' => [
+                                                'controls' => 2
+                                            ],
+                                            'iframeOptions' => [
+                                                'width' => '600',
+                                                'height' => '450'
+                                            ]
+                                        ]); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -107,3 +139,20 @@ use \yii\bootstrap4\Html;
         Click on project title to expand it
     </div>
 </div>
+
+<style>
+    .videoWrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+        padding-top: 25px;
+        height: 0;
+    }
+
+    .videoWrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+</style>

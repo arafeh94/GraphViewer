@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1eb54740a9f6fc10527111dd423e9373",
+    "content-hash": "802db7b7595e3a2422b02e13f69a58cf",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -435,6 +435,46 @@
                 "mailer"
             ],
             "time": "2017-05-01T15:54:03+00:00"
+        },
+        {
+            "name": "tuyakhov/yii2-youtube",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tuyakhov/yii2-youtube.git",
+                "reference": "5814ee2c61b27bc96399fa2bd02992324f1f8d5b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tuyakhov/yii2-youtube/zipball/5814ee2c61b27bc96399fa2bd02992324f1f8d5b",
+                "reference": "5814ee2c61b27bc96399fa2bd02992324f1f8d5b",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "tuyakhov\\youtube\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Tuyakhov",
+                    "email": "atuyakhov@gmail.com"
+                }
+            ],
+            "description": "Yii2 youtube extension",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "time": "2015-04-01T15:15:35+00:00"
         },
         {
             "name": "yiisoft/yii2",

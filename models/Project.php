@@ -12,6 +12,7 @@ use Yii;
  * @property string $description
  * @property string $publishers_url
  * @property string $download_url
+ * @property string youtube_id
  * @property int $created_by
  * @property string $created_at
  * @property Graph[] $graphs
@@ -34,7 +35,7 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'description'], 'required'],
-            [['description', 'publishers_url', 'download_url'], 'string'],
+            [['description', 'publishers_url', 'download_url','youtube_id'], 'string'],
             [['created_by'], 'integer'],
             [['created_at'], 'safe'],
             [['title'], 'string', 'max' => 255],
@@ -52,6 +53,7 @@ class Project extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'publishers_url' => Yii::t('app', 'Publishers Url'),
             'download_url' => Yii::t('app', 'Download Url'),
+            'youtube_id' => Yii::t('app', 'Youtube Id'),
             'created_by' => Yii::t('app', 'Created By'),
             'created_at' => Yii::t('app', 'Created At'),
         ];

@@ -18,6 +18,7 @@ use \kartik\select2\select2;
     <?= $form->field($model, 'description') ?>
     <?= $form->field($model, 'publishers_url') ?>
     <?= $form->field($model, 'download_url') ?>
+    <?= $form->field($model, 'youtube_id')->textInput(['placeholder'=>'ex: K2UuSwqSOFo']) ?>
     <?= $form->field(new \yii\base\DynamicModel(['authors']), 'authors')->widget(Select2::classname(), [
         'data' => \yii\helpers\ArrayHelper::map(\app\models\Author::find()->all(), 'id', 'name'),
         'options' => ['placeholder' => 'Select authors ...'],

@@ -5,6 +5,7 @@
  * Date: 3/23/2019
  * Time: 8:19 PM
  */
+
 use \rmrevin\yii\fontawesome\FAS;
 use yii\widgets\ActiveForm;
 use yii\bootstrap4\Html;
@@ -19,17 +20,18 @@ use yii\bootstrap4\Html;
             <div class="card">
                 <div class="card-header">
                     <?= $graph->title ?>
-                    <?= \yii\bootstrap4\Html::a(FAS::icon('pen-fancy', ['style' => 'color:black']), ['graph/update', 'graphId' => $graph->id]) ?>
+                    <?= \yii\bootstrap4\Html::a(FAS::icon('pen-fancy', ['style' => 'color:#6c757d']), ['graph/update', 'graphId' => $graph->id], ['class' => 'float-right']) ?>
 
                 </div>
                 <div class="card-body">
                     <?= $graph->description ?>
                 </div>
             </div>
-            <?php $form = ActiveForm::begin(); ?>
+            <?php $form = ActiveForm::begin(['id' => 'graph_input']); ?>
             <div class="card" style="margin-top: 16px">
                 <div class="card-header">
                     Input
+                    <?= \yii\bootstrap4\Html::tag('span', FAS::icon('download', ['style' => 'color:#6c757d']), ['onclick' => 'saveToFile(this)', 'class' => 'float-right']) ?>
                 </div>
                 <div class="card-body">
                     <?= \yii\bootstrap4\Html::textarea('input', $input, ['id' => 'json_area', 'style' => 'width:100%;height:150px;resize:vertical']) ?>
@@ -55,11 +57,12 @@ use yii\bootstrap4\Html;
                 <div class="card-body">
                     <?php if ($result) : ?>
                         <?= Html::img("@web/$result", ['class' => 'pull-left img-responsive', 'style' => 'width:100%']); ?>
-                    <?php elseif($result === false): ?>
+                    <?php elseif ($result === false): ?>
                         <span class="help-block"> Error while parsing results</span>
                     <?php else: ?>
                         Provide Input To Generate The Graph
                     <?php endif; ?>
+                    <div><b><span id="wait" style="color: #1b6d85"></span></b></div>
                 </div>
             </div>
         </div>
@@ -90,5 +93,29 @@ use yii\bootstrap4\Html;
                 }
             });
         });
-    })
+        $('#graph_input').submit(function () {
+            $('#wait').text('please wait...');
+        })
+    });
+
+    function saveToFile(textArea) {
+        let textToWrite = $('#json_area').text();
+        let textFileAsBlob = new Blob([textToWrite], {type: 'text/plain'});
+        let fileNameToSaveAs = 'data_set.json';
+
+        let downloadLink = document.createElement("a");
+        downloadLink.download = fileNameToSaveAs;
+        downloadLink.innerHTML = "Download File";
+        if (window.webkitURL != null) {
+            downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+        }
+        else {
+            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+            downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+        }
+
+        downloadLink.click();
+    }
 </script>
