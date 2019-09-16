@@ -1,10 +1,10 @@
 ### website used as rest api for mappers application
 
-**TO CLONE AND RUN YOU MUST FULFILL THOSE REQUIREMENTS FIRST**  
+**TO CLONE AND RUN YOU MUST FULFILL THE REQUIREMENTS BELOW**  
 1. php must be included in the environment path  
 2. git must be installed and reachable from cmd  
 3. make sure that mode_rewrite enabled in your apache config  
-4. open txt file and past this code  
+4. open txt file and paste this code  
 
 ```
 git clone https://github.com/arafeh94/GraphViewer.git
