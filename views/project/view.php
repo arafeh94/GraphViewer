@@ -68,7 +68,7 @@ use \yii\bootstrap4\Html;
                                     <?= "Not Available" ?>
                                 <?php else: ?>
                                     <?php foreach ($project->authors as $author): ?>
-                                        <?= Html::a($author->name, $author->address, ['target' => "_blank"]) ?>
+                                        <?= Html::a($author->name, $author->address, ['target' => "_blank"]) ?>, 
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>
