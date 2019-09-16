@@ -86,3 +86,5 @@ create table user
 );
 # create user if required
 ```
+INSERT INTO `author` (`id`, `name`, `address`) VALUES (NULL, 'none', 'default author');
+INSERT INTO `user` (`id`, `username`, `password`, `role`, `created_at`) VALUES (NULL, 'admin', 'admin', '1', CURRENT_TIMESTAMP);
