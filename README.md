@@ -14,7 +14,7 @@ php composer-setup.php
 php -r "unlink('composer-setup.php');"
 php composer.phar install
 ```
-
+**OPEN MYSQL DATABASE AND CREATE TABLE matlab, THEN USE THE SCRIPT BELOW TO CREATE THE TABLES**  
 ```mysql
 create table author
 (
