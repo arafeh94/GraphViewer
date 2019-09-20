@@ -1,6 +1,7 @@
 <?php
 
 use \yii\bootstrap4\Html;
+use \rmrevin\yii\fontawesome\FAS;
 
 /**
  * Created by PhpStorm.
@@ -23,7 +24,8 @@ use \yii\bootstrap4\Html;
                             data-target="#collapseProject<?= $project->id ?>"
                             aria-expanded="<?= $focus == $project->id ? 'true' : 'false' ?>"
                             aria-controls="collapseProject<?= $project->id ?>">
-                        <?= $project->title ?>
+                        <?= Html::tag('text', $project->title, ['style' => 'margin-right:8px']) ?>
+                        <?= \yii\bootstrap4\Html::a(FAS::icon('pen-fancy', ['style' => 'color:#6c757d']), ['project/update', 'id' => $project->id], ['class' => 'float-right']) ?>
                     </button>
                 </h5>
             </div>
@@ -64,11 +66,11 @@ use \yii\bootstrap4\Html;
                         <div class="card">
                             <div class="card-header">Authors</div>
                             <div class="card-body">
-                                <?php if (empty($project->publishers_url)): ?>
+                                <?php if (empty($project->authors)): ?>
                                     <?= "Not Available" ?>
                                 <?php else: ?>
                                     <?php foreach ($project->authors as $author): ?>
-                                        <?= Html::a($author->name, $author->address, ['target' => "_blank"]) ?>, 
+                                        <?= Html::a($author->name, $author->address, ['target' => "_blank"]) ?>,
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>
@@ -80,7 +82,7 @@ use \yii\bootstrap4\Html;
                                     <?= "Not Available" ?>
                                 <?php else: ?>
                                     <?php foreach (explode(',', $project->publishers_url) as $url): ?>
-                                        <?= Html::a($url, $url, ['target' => "_blank"]) ?>
+                                        <?= Html::a($url, $url, ['target' => "_blank"]) ?>,
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>
@@ -88,8 +90,7 @@ use \yii\bootstrap4\Html;
                         <div class="card">
                             <div class="card-header">Download Paper</div>
                             <div class="card-body">
-                                <?= Html::a('Download Link', $project->download_url,
-                                    ['target' => "_blank"]) ?>
+                                <?= Html::a('Download Link', $project->download_url, ['target' => "_blank"]) ?>
                             </div>
                         </div>
                     </div>

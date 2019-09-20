@@ -10,6 +10,7 @@ use app\models\Graph;
 use app\models\Project;
 use app\models\ProjectQuery;
 use Yii;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -34,7 +35,7 @@ class GraphController extends Controller
                         'roles' => ['?', '@'],
                     ],
                     [
-                        'actions' => ['update', 'create'],
+                        'actions' => ['update', 'create', 'delete'],
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
@@ -129,6 +130,18 @@ class GraphController extends Controller
         return $this->render('modify', [
             'model' => $model,
         ]);
+    }
+
+    public function actionDelete($graphId)
+    {
+        $model = Graph::findOne($graphId);
+        $projectId = $model->project_id;
+        try {
+            $model->delete();
+        } catch (StaleObjectException $e) {
+        } catch (\Throwable $e) {
+        }
+        return $this->redirect(['project/view', 'focus' => $projectId]);
     }
 
 }

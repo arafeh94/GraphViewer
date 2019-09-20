@@ -31,4 +31,9 @@ class AuthorQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function hasProjects($id)
+    {
+        return ProjectAuthors::find()->where("author_id = $id")->exists();
+    }
 }

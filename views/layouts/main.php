@@ -35,6 +35,7 @@ AppAsset::register($this);
         echo Nav::widget([
             'items' => [
                 ['label' => 'Projects', 'url' => ['/project/view']],
+                ['label' => 'Authors', 'url' => ['/author/index']],
                 ['label' => Yii::$app->user->isGuest ? 'Login' : 'Logout(' . User::get()->username . ')',
                     'url' => Yii::$app->user->isGuest ? ['/site/login'] : ['/site/logout']],
                 ['label' => 'About', 'url' => ['/site/about']],

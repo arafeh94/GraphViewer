@@ -45,6 +45,10 @@ use yii\bootstrap4\Html;
                     <?= Html::a('Back', ['project/view', 'focus' => $graph->project_id], [
                         'class' => 'btn btn-secondary'
                     ]) ?>
+                    <?= Html::a('Delete Graph', ['graph/delete', 'graphId' => $graph->id], [
+                        'class' => 'btn btn-danger',
+                        'style' => 'position: absolute;right: 0;margin-right: 20px;'
+                    ]) ?>
                 </div>
             </div>
             <?php ActiveForm::end(); ?>
